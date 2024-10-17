@@ -1,0 +1,310 @@
+Practical no-3
+a) Create a user xyz, a group g1 using commands and add user xyz to group g1. 
+
+• useradd xyz 
+• passwd xyz 
+• groupadd g1 
+• usermod -g g1 xyz 
+• id xyz  
+• userdel -r xyz   
+• groupdel g1  
+• cat /etc/passwd 
+
+(b) Create two directories  
+1) /data/sales 
+2) /data/support 
+change the group ownership of these directories to group g1.
+
+mkdir /data/sales
+mkdir /data/support
+ groupadd g1
+cd /data
+ls -l
+cd ..
+chgrp g1/data/sales
+chgrp g1 /data/support
+cd ..
+cd data
+ls -l
+
+
+
+Practical No-4 
+Setting up NFS file server 
+
+cd /
+cd ~
+rpm -qa | grep nfs
+ifconfig eth0  192.168.1.3 netmask 255.255.255.0 up
+ifconfig
+cd /home
+mkdir servernfs
+cd servernfs
+cat >sample.txt
+hi hello , how are you i am fine and what think about to me. (clt+d)
+vim /etc/exports  (press i)
+/home/servernfs * (rw,sync)      (((esc press :wq)))
+service nfs restart
+service iptables stop
+showmount -e 192.168.1.3
+service vsftpd stop
+service vsftpd status
+chmod -R 777 /home/servernfs
+
+After that open a new terminal and write a following commads
+
+cd /home
+mkdir clientnfs
+mount -t nfs 192.168.1.3:/home/servernfs/  /home/clientnfs/
+cd clientnfs
+ls
+cat sample
+
+
+Practical no-5
+(a) Start a job and move a job from fg to bg
+system-config-users   (clt+z)
+bg
+fg (clt+z)
+system-config-users &
+fg
+
+(b) change the niceness of the process
+top
+press R
+choose 5 then write -11
+(c) hardlink and symbolink
+cd Desktop , mkdir sample , touch file,
+ln -s sample sdir , ln -s file sfile,
+ln file hfile
+ls-l
+rmdir sample 
+rm file
+ls -l
+
+(d) create a backup of file and folders
+cd Desktop
+touch f1 f2 f3
+tar -cvf back.tar f1 f2 f3
+du -sh back.tar
+gzip back.tar
+du -sh back.tar.gz
+
+
+
+Practical no-6
+(a) mount and umount and usb flash drive 
+mkdir test
+df
+mount -test vfat /dev/sdb1 test
+umount /dev/sdb1
+
+(b) schedule a cron job and send a mail normal user to root usre
+su tyit
+crontab -e  (press i)
+*1/ * * * * mail -s "Radhe Radhe" root <    (esc press than :wq)
+su root
+mail
+if not getting then((file sys>>var>>spool>>mail>>tyit ))
+service iptables stop
+mail
+
+
+
+
+Practical no 8
+(a) Configure Apache web server
+(b) Write a script ,monitor activity on Apache web server script should also start the Apache web server if it is not running.
+ 
+
+(a)
+rpm -qa | grep http
+chkconfig httpd on
+cd /
+mkdir var/www/html
+cd var/www/html
+gedit sample.html
+
+Now write something to the sample files. for example is given in...
+
+<html>
+<head>
+<title> Hello </title>
+</head>
+<body>
+This is apache web server practical
+</body>
+</html>
+  
+after that we need to restart httpd service for following command---
+
+service httpd restart
+
+after that we go to application >> internet >> conqueror to open a browser give the right path of the file where we written some html file code....   (((((this method not seen in the output file)))))
+
+(b)
+
+
+gedit test.sh
+
+#!/bin/bash
+c=0
+while ps aux | grep http | grep -v grep >/dev/null
+do
+c=$((c+1))
+sleep 1
+echo c is $c
+done
+service httpd start
+
+
+save button to save
+chmod 777 test.sh
+sh test.sh
+
+minimize that terminal and open  a new terminal and stop the service 
+
+service httpd stop
+
+
+
+
+Practical No-9
+
+Aim- setting up a samba server
+
+ifconfig eth0 192.168.1.3 netmask 255.255.255.0 up
+ifconfig
+go to the control panel > network and internet > network connection > VMNet8  right click > properties >IPV and change the ip address that is 192.168.1.2
+VMNet1 right click > properties >IPV and change the ip address that is 192.168.1.1
+cd /home
+mkdir tyit
+cd tyit
+touch r1 r2
+cat > r3
+this is a simple file of the practical and welcome to the practical.
+
+clt+d
+
+cd ..
+chmod -R 777 tyit 
+
+vim /etc/samba/smb.conf
+:set nu
+ go to the line no 74  and press i for the insert mode and change the workgroup name WORKGROUP
+
+go to the line no 79 and remove the ;  operator and after that go to the interfaces and change the ip address that is 192.168.1.1  and 192.168.1.3
+go to the line no 80 and remove the ; operator and go the the host allow and change the ip address 127. 192.168.1. 192.168.108
+
+
+go to the last of the this file (line no- 288) copy to the from public to write list and after the +staff press enter and paste the content
+and change the content same as the taken photo   ((tyit, samba, tyit, admin administrator))
+
+after that service smb start
+service smb restart
+
+testparm
+ then press enter and again press enter
+service iptables stop
+setenforce 0
+
+getsebool -a | grep samba
+
+setsebool samba_create_home_dirs=1
+setsebool samba_enable_home_dirs=1
+
+getsebool -a | grep samba
+
+service smb restart
+
+useradd test
+smbpasswd   -a test
+
+service smb restart
+
+smbclient //192.168.1.3/home/tyit -U test
+service smb restart
+service nmb restart
+
+go to the run on the window and run the following commands---
+
+ping 192.168.1.3 -t
+
+\\192.168.1.3
+
+
+
+
+Practical no-10
+Configure DHCP server in Linux
+
+Install all dhcp package  
+rpm -qa | grep dhcp >> to show that DHCP related package install or not  
+hostname >> to check the hostname   
+setup  >> it is used to set the configure network that is Static ip address, hostname, subnetmast 
+and many more. 
+ifconfig >> it is used to check that my ip address is correct assign or not.  
+ifdown eth0  >> it is used to disconnect the eth0 
+ifup eth0    >> it is used to connect the eth0  
+File system > usr > share > doc > dchp-4.1.1 > dhcp.conf.sample(copy)  
+ File system > Etc > dhcp (paste) and remove the other dhcp.conf file  
+Rename fine name dhcp.conf.sampe to dhcp.conf 
+vim /etc/dhcp/dhcpd.conf 
+:set nu 
+Go to line no 7 and change the do:main name as tyit.com 
+Go to line no 8 to add    server.tyit.com  
+Go to line no 18 and remove the # symbol. 
+Go to line no 27 and 28 and comment the both the line using # symbol 
+Go to line no 32 and set the subnet 192.168.1.0 netmast 255.255.255.0 
+Go to line no 33 and change the range from 192.168.1.10 to 192.168.1.20
+Go to line no 34 and comment the line using # symbol 
+esc :wq  
+service dhcpd start 
+chkconfig dhcpd on  
+service iptables stop  
+setenforce 0  
+Go to the RHEL the right click and manage and clone and next >next>full clone then finish 
+After that close the  
+After that go to the clone linux terminal and perform the below 
+If not find the ifconfig eth1 192.168.1.10 netmask 255.255.255.0 up 
+Then delete the history using history -c then close the terminal  
+And then new a new terminal and type ifconfig 
+
+
+
+
+
+Practical no-11
+
+Aim: Write a simple script that ask the user to enter the name of the RPM or File that user 
+wants to quarry. Write the script to present the menu which provides different options that 
+allow the user to quarry on the RPM database. The script should offers some options and it 
+should run the task that the user has selected. 
+Ans - 
+cd Desktop    
+gedit script.sh 
+
+#!/bin/bash
+echo 'Enter the name of an RPM file'
+read RPM
+echo 'select a task from menu"
+select TASK in 'Check from which rpm this file comes' 'check if this rpm is installed' 'this rpm' 'remove this rpm'
+do
+case $REPLY in
+1) rpm -qa $RPM*;;
+2) rpm -qa | grep $RPM*;;
+3) rpm -ivh $RPM*;;
+4) rpm -e $RPM*;;
+*) echo error && exit 1;;
+esac
+if [ -n "TASK"]
+then
+echo you have selected task $TASK
+break
+else
+echo invalid choice
+fi
+done
+
+
+sh script.sh
