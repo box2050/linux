@@ -1,0 +1,515 @@
+Caleder Control  
+
+protected void Calendar1_DayRender(object sender, DayRenderEventArgs e)
+  {
+      if(e.Day.Date.Year==2024 && e.Day.Date.Month==10 && e.Day.Date.Day== 18)
+      {
+          Label l1 = new Label();
+          l1.Text = "Happy Birthday";
+          e.Cell.Controls.Add(l1);
+
+      }
+
+  }
+
+  protected void Calendar1_SelectionChanged(object sender, EventArgs e)
+  {
+      Calendar1.SelectedDayStyle.BackColor = System.Drawing.Color.Red;
+      Calendar1.SelectedDayStyle.ForeColor= System.Drawing.Color.Green;
+  }
+
+  protected void Button1_Click(object sender, EventArgs e)
+  {
+      TimeSpan ts = Calendar1.SelectedDate - Calendar2.SelectedDate;
+      Label1.Text = ts.TotalDays.ToString();  
+
+
+
+Adrotator  
+
+
+<?xml version="1.0" encoding="utf-8" ?> 
+<Advertisements> 
+ <Ad> 
+  <ImageUrl>hack.jpg</ImageUrl> 
+  <NavigateUrl>https://www.google.com/</NavigateUrl> 
+  <AlternateText>Hey, How are you?</AlternateText> 
+ </Ad> 
+</Advertisements>
+
+
+
+
+Exception Handling
+Webform1.aspx 
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" 
+Inherits="WebApplication5.WebForm1" %> 
+ 
+<!DOCTYPE html> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head runat="server"> 
+    <title></title> 
+</head> 
+<body> 
+    <form id="form1" runat="server"> 
+        <div> 
+            <br /> 
+            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox> 
+Advanced Web Development  T053 Sonu Yadav 
+            <br /> 
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" /> 
+            <br /> 
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label> 
+        </div> 
+    </form> 
+</body> 
+</html> 
+Webform1.aspx.cs 
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+namespace WebApplication5 
+{ 
+    public class InvalidAgeException : Exception 
+    { 
+        public InvalidAgeException(String message) : base(message) 
+        { 
+ 
+        } 
+    } 
+    public partial class WebForm1 : System.Web.UI.Page 
+    { 
+Advanced Web Development  T053 Sonu Yadav 
+        protected void Page_Load(object sender, EventArgs e) 
+        { 
+ 
+        } 
+ 
+        protected void Button1_Click(object sender, EventArgs e) 
+        { 
+            int a = Convert.ToInt32(TextBox1.Text); 
+            void validate(int age) 
+            { 
+                if (age < 18) 
+                { 
+                    throw new InvalidAgeException("Sorry, Age must be greater than 18"); 
+                } 
+                else 
+                { 
+                    Label1.Text = "Valid : Welcome to Sonu Yadav "; 
+                } 
+            } 
+            try 
+            { 
+                validate(a); 
+            } 
+            catch (InvalidAgeException ex) 
+            { 
+                Label1.Text = Convert.ToString(ex); 
+            } 
+Advanced Web Development  T053 Sonu Yadav 
+        } 
+        protected void TextBox1_TextChanged(object sender, EventArgs e) 
+        { 
+        } 
+    } 
+} 
+Output-
+
+
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int n1 = 0, n2 = 1, n3, i, number;
+
+        Console.Write("Enter the number of terms: ");
+        number = int.Parse(Console.ReadLine());
+
+        Console.Write(n1 + " " + n2 + " "); // printing first two numbers
+
+        for (i = 2; i < number; ++i) // loop starts from 2 because 0 and 1 are already printed
+        {
+            n3 = n1 + n2;
+            Console.Write(n3 + " ");
+            n1 = n2;
+            n2 = n3;
+        }
+    }
+}
+
+
+
+(A) VALIDATION CONTROL 
+REQUIRED FOR THE ALL TEXTBOX 
+EMAIL>> REGULAREXPRESSION  >> VALIDATION EXPRESSION 
+CONFORM PASSWORD-2 >> COMPARE >>OPERSTION >> TYPE 
+AGE >> RANGE >> TYPE 
+Button >> onclick  = "alert(&quot;You Submit the  Form&quot;)" 
+ 
+Under the Configuration file we can add the following code in the Web.config 
+<appSettings> 
+ <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" /> 
+</appSettings> 
+
+
+
+
+
+Cookies
+
+WebForm1.aspx: 
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" 
+Inherits="prac5c.WebForm1" %> 
+ 
+<!DOCTYPE html> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head runat="server"> 
+    <title></title> 
+</head> 
+<body> 
+T053 Sonu Yadav  Advanced Web Development Practical 
+6 
+ 
+    <form id="form1" runat="server"> 
+        <div> 
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label> 
+            <br /> 
+            <br /> 
+            <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label> 
+            <br /> 
+            <br /> 
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="View State" /> 
+            <br /> 
+            <br /> 
+            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox> 
+            <br /> 
+            <br /> 
+            <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Cookies" /> 
+        </div> 
+    </form> 
+</body> 
+</html> 
+ 
+WebForm1.aspx.cs: 
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+namespace prac5c { 
+    public partial class WebForm1 : System.Web.UI.Page { 
+        protected void Page_Load(object sender, EventArgs e) 
+        { 
+            if (IsPostBack) 
+            { 
+                int ViewStateVal = Convert.ToInt32(ViewState["count"]) + 1; 
+                Label2.Text = "View State = " + ViewStateVal.ToString(); 
+T053 Sonu Yadav  Advanced Web Development Practical 
+7 
+ 
+            } 
+            else 
+            { 
+                ViewState["count"] = 1; 
+            } 
+        } 
+ 
+        protected void Button1_Click(object sender, EventArgs e) 
+        { 
+            Label1.Text = ViewState["count"].ToString(); 
+        } 
+ 
+        protected void Button2_Click(object sender, EventArgs e) 
+        { 
+            HttpCookie c = new HttpCookie("name"); 
+            c.Value = TextBox1.Text; 
+            Response.Cookies.Add(c); 
+            Response.Redirect("WebForm2.aspx"); 
+        } 
+    } 
+} 
+ 
+WebForm2.aspx: 
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm2.aspx.cs" 
+Inherits="prac5c.WebForm2" %> 
+ 
+<!DOCTYPE html> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head runat="server"> 
+    <title></title> 
+</head> 
+<body> 
+    <form id="form1" runat="server"> 
+        <div> 
+            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label> 
+T053 Sonu Yadav  Advanced Web Development Practical 
+8 
+ 
+        </div> 
+    </form> 
+</body> 
+</html> 
+ 
+ 
+WebForm1.aspx.cs: 
+using System; 
+using System.Collections.Generic; 
+using System.Linq; 
+using System.Web; 
+using System.Web.UI; 
+using System.Web.UI.WebControls; 
+ 
+namespace prac5c { 
+    public partial class WebForm2 : System.Web.UI.Page { 
+        protected void Page_Load(object sender, EventArgs e) 
+        { 
+            if (Request.Cookies["name"] != null) {  
+                Response.Write("Welcome " +  Request.Cookies["name"].Value); 
+           }  } }} 
+Output:
+
+
+
+Database-Connectivity--
+
+
+SqlConnection con = new SqlConnection()
+con.ConnectionString = "";
+con.open();
+
+SqlCommand cmd = new SqlCommand ("select * from student",con);
+Dataset ds = new DataSet ();
+SqlDataAdepter  ad = new SqlDataAdepter(cmd);
+
+GridView1.DataSource = ds.Tables[0];
+Grigview1.Databind()
+
+
+insert Button 
+
+
+SqlConnection con = new SqlConnection()
+con.ConnectionString = "";
+con.open();
+
+SqlCommand cmd = new SqlCommand ("insert into student(id,name)values('"+TextBox1.Text+"' , '"+TextBox2.Text+"')",con);
+cmd.ExecuteNonQuarry();
+con.close();
+
+
+Update Button ---
+SqlConnection con = new SqlConnection()
+con.ConnectionString = "";
+con.open();
+
+SqlCommand cmd = new SqlCommand ("update student set name ='"+TextBox2.Text+"' where id = '"+TextBox1.Text+"')",con);
+cmd.ExecuteNonQuarry();
+con.close();
+
+Delete Button---
+SqlConnection con = new SqlConnection()
+con.ConnectionString = "";
+con.open();
+
+SqlCommand cmd = new SqlCommand ("delete from student where id ='"+TextBox1.Text+"'",con);
+cmd.ExecuteNonQuarry();
+con.close();
+
+
+Reset Button--
+
+TextBox1.Text= "";
+TextBox2.Text = "";
+
+
+
+
+
+
+Under the button click this is user define exception
+
+Label3.Text = "";
+try{
+int num = int.Parse(TextBox1.Text);
+if (num<0)
+{
+throw new Exception("Number can not be Negative");
+}
+Label3.ForeColor = System.Drawing.Color.Green;
+Label3.Text = "You Entered " + num;
+}
+catch  ( Exception ex) 
+{
+Label3.ForeColor = System.Drawing.Color.Red;
+Label3.Text = ex.Message;
+}
+
+
+
+
+
+Factorial of a number
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter a number: ");
+        int number = int.Parse(Console.ReadLine());
+        
+        long factorial = 1;
+
+        for (int i = 1; i <= number; i++)
+        {
+            factorial *= i;
+        }
+
+        Console.WriteLine("Factorial of " + number + " is: " + factorial);
+    }
+}
+
+
+Money Conversion
+
+using System;
+
+class SimpleMoneyConverter
+{
+    static void Main()
+    {
+        // Simple hardcoded conversion rates
+        double usdToEur = 0.94;
+        double usdToInr = 83.20;
+
+        Console.WriteLine("Enter amount in USD:");
+        double usdAmount = Convert.ToDouble(Console.ReadLine());
+
+        // Convert USD to EUR and INR
+        double eurAmount = usdAmount * usdToEur;
+        double inrAmount = usdAmount * usdToInr;
+
+        Console.WriteLine("Equivalent in EUR: " + eurAmount);
+        Console.WriteLine("Equivalent in INR: " + inrAmount);
+    }
+}
+
+
+Cube 
+
+
+using System;
+
+class CubeCalculator
+{
+    static void Main()
+    {
+        Console.WriteLine("Enter a number to find its cube:");
+        double number = Convert.ToDouble(Console.ReadLine());
+
+        double cube = number * number * number;
+
+        Console.WriteLine("The cube of " + number + " is: " + cube);
+    }
+}
+
+
+
+Inheritence 
+
+using System;
+
+class Animal  // Parent class
+{
+    public void Eat()
+    {
+        Console.WriteLine("This animal is eating.");
+    }
+}
+
+class Dog : Animal  // Child class inheriting from Animal
+{
+    public void Bark()
+    {
+        Console.WriteLine("The dog is barking.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Dog myDog = new Dog();
+        
+        // Calling methods from both the parent (Animal) and the child (Dog)
+        myDog.Eat();   // Inherited from Animal class
+        myDog.Bark();  // Defined in Dog class
+    }
+}
+
+
+Boxing and UnBoxing
+
+ using System; 
+namespace ConsoleApp4 
+{ 
+    internal class Program 
+    { 
+        static void Main(string[] args) 
+        { 
+            int n = 30; 
+            object obj = n; 
+            n = 50; 
+            int m = (int)obj; 
+            Console.WriteLine("Value of number stored {0}", n); 
+            Console.WriteLine("(Boxing)Reference of number stored in object {0}", obj); 
+            Console.WriteLine("(UnBoxing)Reference to value {0}", m); 
+            Console.WriteLine("T053 Sonu Yadav"); 
+            Console.ReadKey(); 
+        } 
+    } 
+} 
+
+
+Interfaces 
+
+
+using System; 
+interface IAnimal 
+{ 
+    void animalSound();  
+} 
+class Pig : IAnimal 
+{ 
+    public void animalSound() 
+    { 
+        Console.WriteLine("The pig says: wee wee"); 
+    } 
+    } 
+class Program 
+ 
+ 
+ 
+{ 
+    static void Main(string[] args) 
+    { 
+        Pig myPig = new Pig(); 
+        myPig.animalSound(); 
+        Console.WriteLine("Sonu Yadav TYIT T053"); 
+        Console.ReadKey(); 
+    } 
+}
