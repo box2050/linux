@@ -1,0 +1,221 @@
+Money Conversion
+
+using System;
+
+class SimpleMoneyConverter
+{
+    static void Main()
+    {
+        // Simple hardcoded conversion rates
+        double usdToEur = 0.94;
+        double usdToInr = 83.20;
+
+        Console.WriteLine("Enter amount in USD:");
+        double usdAmount = Convert.ToDouble(Console.ReadLine());
+
+        // Convert USD to EUR and INR
+        double eurAmount = usdAmount * usdToEur;
+        double inrAmount = usdAmount * usdToInr;
+
+        Console.WriteLine("Equivalent in EUR: " + eurAmount);
+        Console.WriteLine("Equivalent in INR: " + inrAmount);
+    }
+}
+
+
+Find Cube
+
+using System;
+
+class CubeCalculator
+{
+    static void Main()
+    {
+        Console.WriteLine("Enter a number to find its cube:");
+        double number = Convert.ToDouble(Console.ReadLine());
+
+        double cube = number * number * number;
+
+        Console.WriteLine("The cube of " + number + " is: " + cube);
+    }
+}
+
+
+Interfaces
+
+ using System;  
+interface IAnimal  
+{  
+    void animalSound();   
+}  
+class Pig : IAnimal  
+{  
+    public void animalSound()  
+    {  
+        Console.WriteLine("The pig says: wee wee");  
+    }  
+    }  
+class Program  
+{  
+    static void Main(string[] args)  
+    {  
+        Pig myPig = new Pig();  
+        myPig.animalSound();  
+        Console.WriteLine("Sonu Yadav TYIT T053");  
+        Console.ReadKey();  
+    }  
+} 
+
+
+
+
+(C)  Fibonacci Series 
+
+
+using System;
+
+class CubeCalculator
+{
+    static void Main()
+    {
+
+        int num1 = 0, num2 = 1, num3, number;
+        Console.Write("Enter the number of elements: ");
+        number = int.Parse(Console.ReadLine());
+        Console.Write(num1 + " " + num2 + " "); // printing 0 and 1 
+        for (int i = 2; i < number; ++i)  // loop starts from 2 since 0 and 1 are already printed 
+        {
+            num3 = num1 + num2;
+            Console.Write(num3 + " ");
+            num1 = num2;
+            num2 = num3;
+        }
+
+    }
+}
+
+
+(a) Create a simple application to demonstrate the concepts boxing and unboxing.  
+Code- using System;  
+namespace ConsoleApp4  
+{  
+    internal class Program  
+    {  
+        static void Main(string[] args)  
+        {  
+            int n = 30;  
+            object obj = n;  
+            n = 50;  
+            int m = (int)obj;  
+            Console.WriteLine("Value of number stored {0}", n);  
+            Console.WriteLine("(Boxing)Reference of number stored in object {0}", obj);  
+            Console.WriteLine("(UnBoxing)Reference to value {0}", m);  
+            Console.WriteLine("T053 Sonu Yadav");  
+            Console.ReadKey();  
+        }  
+    }  
+} 
+
+
+
+Index out of range and not divide by zero
+
+using System;
+
+class SimpleExceptionHandling
+{
+    static void Main()
+    {
+        // Example for IndexOutOfRangeException
+        try
+        {
+            int[] numbers = { 1, 2, 3 };
+            Console.WriteLine(numbers[5]); // Trying to access an invalid index
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("Index out of range!"); // Simple error message
+        }
+
+        // Example for DivideByZeroException
+        try
+        {
+            int a = 10;
+            int b = 0;
+            int result = a / b; // Dividing by zero
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("Cannot divide by zero!"); // Simple error message
+        }
+    }
+}
+
+
+
+
+Inheritance
+
+using System;
+
+class Animal  // Parent class
+{
+    public void Eat()
+    {
+        Console.WriteLine("This animal is eating.");
+    }
+}
+
+class Dog : Animal  // Child class inheriting from Animal
+{
+    public void Bark()
+    {
+        Console.WriteLine("The dog is barking.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Dog myDog = new Dog();
+        
+        // Calling methods from both the parent (Animal) and the child (Dog)
+        myDog.Eat();   // Inherited from Animal class
+        myDog.Bark();  // Defined in Dog class
+    }
+}
+
+
+
+
+Exception  
+
+using System;
+
+class SimpleExceptionExample
+{
+    static void Main()
+    {
+        try
+        {
+            Console.WriteLine("Enter a number:");
+            int number = Convert.ToInt32(Console.ReadLine());
+
+            int result = 10 / number;  // This will cause an exception if number is 0
+            Console.WriteLine("Result: " + result);
+        }
+        catch (DivideByZeroException)
+        {
+            Console.WriteLine("Error: Cannot divide by zero!");  // Handles division by zero
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Error: Please enter a valid number!");  // Handles invalid input format
+        }
+    }
+}
+
+
+
+
